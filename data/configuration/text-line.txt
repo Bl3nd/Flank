@@ -1,0 +1,47 @@
+[create] 5383 [define] The_Bank_Of_Phoenix
+
+[create] 640 [define] _
+
+[create] 663 [define] Pheonix
+
+[create] 7332 [define] @gr2@Change_Your_Appearance
+
+[create] 7333 [define] @gr2@Open_Your_Bank_Account
+
+[create] 7334 [define] @gr2@Save_Your_Account
+
+[create] 7336 [define] @gr2@Calculate_Current_Position
+
+[create] 7335 [define] _
+
+[create] 7383 [define] @gr2@Spawn_An_Item_For_Testing
+
+[create] 7339 [define] _
+
+[create] 7338 [define] _
+
+[create] 7340 [define] _
+
+[create] 7346 [define] _
+
+[create] 7341 [define] _
+
+[create] 7342 [define] _
+
+[create] 7340 [define] _
+
+[create] 7337 [define] _
+
+[create] 7343 [define] _
+
+[create] 7346 [define] _
+
+[create] 7346 [define] _
+
+[create] 7345 [define] _
+
+[create] 7347 [define] _
+
+[create] 7348 [define] _
+
+[create] 7344 [define] _
