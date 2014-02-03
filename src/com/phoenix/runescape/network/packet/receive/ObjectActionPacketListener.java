@@ -11,7 +11,7 @@ import com.phoenix.runescape.pulse.impl.InteractionDistancePulse.InteractionType
 /**
  * The packet opcodes which this listener implementation handles.
  */
-@IncomingPacketOpcode ({ 132, 252, 70 })
+@IncomingPacketOpcode ({ 132, 252, 70, 192 })
 
 /**
  * @author Dylan Vicchiarelli
