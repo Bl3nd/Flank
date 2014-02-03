@@ -14,23 +14,33 @@ public final class ThievingSkillingAction extends SkillingAction {
 	}
 	
 	public enum NPC {
-		MAN(1, 8, 3),
-		WOMAN(2, 8, 100);
+		MAN(1, 1, 8, 3, "man"),
+		WOMAN(2, 1, 8, 3, "man");
 		
 		private final int index;
+		
+		private final int levelRequired;
 		
 		private final double experience;
 		
 		private final int coins;
 		
-		private NPC(final int index, final double exp, final int coins) {
+		private final String name;
+		
+		private NPC(final int index, final int levelReq, final double exp, final int coins, final String name) {
 			this.index = index;
+			this.levelRequired = levelReq;
 			this.experience = exp;
 			this.coins = coins;
+			this.name = name;
 		}
 		
 		public int getIndex() {
 			return index;
+		}
+		
+		public int getRequiredLevel() {
+			return levelRequired;
 		}
 		
 		public double getExperience() {
@@ -39,6 +49,10 @@ public final class ThievingSkillingAction extends SkillingAction {
 		
 		public int getCoins() {
 			return coins;
+		}
+		
+		public String getName() {
+			return name;
 		}
 	}
 
@@ -54,10 +68,14 @@ public final class ThievingSkillingAction extends SkillingAction {
 		
 		for (NPC npc : NPC.values()) {
 			if (npc.getIndex() == getIndex()) {
-				player.send(new ChatBoxMessagePacket("Attempting to steal"));
-				player.performAnimation(832, 0);
-				player.getSkills().addExperience(17, npc.getExperience());
-				player.getInventoryContainer().addItem(new Item(995, npc.getCoins()));
+				if (player.getSkills().getSkills()[Constants.THIEVING].getLeve() >= npc.getRequiredLevel()) {
+					player.send(new ChatBoxMessagePacket("You attempt to steal the " + npc.getName() +"'s pocket...));
+					player.performAnimation(832, 0);
+					player.getInventoryContainer().addItem(new Item(995, npc.getCoins()));
+					player.getSkills().addExperience(17, npc.getExperience());
+				} else {
+					player.send(new ChatBoxMessagePacket("You need a Thieving level of " + npc.getRequiredLevel + " to steal from this npc.")
+				}
 			}
 		}
 	}
