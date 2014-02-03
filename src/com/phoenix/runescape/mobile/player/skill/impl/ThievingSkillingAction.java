@@ -15,7 +15,7 @@ public final class ThievingSkillingAction extends SkillingAction {
 	
 	public enum NPC {
 		MAN(1, 1, 8, 3, "man"),
-		WOMAN(2, 1, 8, 3, "man");
+		WOMAN(2, 1, 8, 3, "woman");
 		
 		private final int index;
 		
