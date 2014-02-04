@@ -60,10 +60,8 @@ public final class MobClickingPacketListener extends IncomingPacketListener {
 			break;
 			
 		case 1:
-			SkillingActionCoordinator.getSingleton().startSkillingAction(player, new ThievingSkillingAction(index));
-			break;
-			
 		case 2:
+		case 3:
 			SkillingActionCoordinator.getSingleton().startSkillingAction(player, new ThievingSkillingAction(index));
 			break;
 		}
