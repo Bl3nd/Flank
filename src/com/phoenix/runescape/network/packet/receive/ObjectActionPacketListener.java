@@ -32,6 +32,11 @@ public final class ObjectActionPacketListener extends IncomingPacketListener {
 			player.putAttribute("click-index", index);
 			player.putAttribute("click-x", x);
 			PulseScheduler.getInstance().register(new InteractionDistancePulse(player, InteractionType.OBJECT_INTERACTION_FIRST_CLICK));
+			switch (index) {
+			case 1278:
+				SkillingActionCoordinator.getSingleton().startSkillingAction(player, new WoodcuttingSkillingAction(index));
+				break;
+			}
 			break;
 		}
 	}
