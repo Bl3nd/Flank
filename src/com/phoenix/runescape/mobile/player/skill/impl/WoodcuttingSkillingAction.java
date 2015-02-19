@@ -1,0 +1,124 @@
+package com.phoenix.runescape.mobile.player.skill.impl;
+
+import com.phoenix.runescape.item.Item;
+import com.phoenix.runescape.mobile.player.Player;
+import com.phoenix.runescape.mobile.player.skill.SkillingAction;
+import com.phoenix.runescape.network.packet.dispatch.ChatBoxMessagePacket;
+
+/**
+ * Created by Cody on 2/18/2015.
+ * Time: 7:57 PM
+ */
+public final class WoodcuttingSkillingAction extends SkillingAction {
+
+    private Hatchets hatchet;
+
+    private final int treeIndex;
+
+    public WoodcuttingSkillingAction(final int treeIndex) {
+        this.treeIndex = treeIndex;
+    }
+
+    public enum Hatchets{
+        BRONZE(1351, 1, 1),
+        IRON(1349, 1, 10),
+        STEEL(1353, 6, 20),
+        BLACK(1361, 6, 25),
+        MITHRIL(1355, 21, 30),
+        ADAMANT(1357, 31, 40),
+        RUNE(1359, 41, 50),
+        DRAGON(6739, 61, 60);
+
+        private final int index;
+        private final int level;
+        private final int reqAttackLevel;
+
+        private Hatchets(final int index, final int level, final int reqAttLevel) {
+            this.index = index;
+            this.level = level;
+            this.reqAttackLevel = reqAttLevel;
+        }
+
+        public int getIndex() {
+            return index;
+        }
+
+        public int getLevel() {
+            return level;
+        }
+
+        public int getRequiredAttackLevel() {
+            return reqAttackLevel;
+        }
+    }
+
+    public enum Trees{
+        NORMAL(1511, 25, 1278);
+
+        private final int log;
+        private final double exp;
+        private final int treeIndex;
+
+        private Trees(final int log, final double exp, final int treeIndex) {
+            this.log = log;
+            this.exp = exp;
+            this.treeIndex = treeIndex;
+        }
+
+        public int getLog() {
+            return log;
+        }
+
+        public double getExperience() {
+            return exp;
+        }
+
+        public int getTreeIndex() {
+            return treeIndex;
+        }
+    }
+
+    @Override
+    public void performSkillingAction(Player player) {
+
+        if (player.hasAttribute("cutting-Tree") && (System.currentTimeMillis() - player.getAttributeAsLong("cutting-Tree")) < 1900) {
+            return;
+        }
+
+        if (player.getSkilling() == null) {
+            return;
+        }
+
+        for (Hatchets hatchet : Hatchets.values()) {
+            if (player.getInventoryContainer().containsItem(hatchet.getIndex()) || player.getEquipmentContainer().containsItem(hatchet.getIndex())) {
+                this.hatchet = hatchet;
+                break;
+            }
+        }
+
+        for (Trees tree : Trees.values()) {
+            if (tree.getTreeIndex() == getTreeIndex()) {
+                if (hatchet != null) {
+                    player.send(new ChatBoxMessagePacket("You swing your axe at the tree..."));
+                    player.performAnimation(879, 0);
+                    player.getInventoryContainer().addItem(new Item(tree.getLog(), 1));
+                    player.getSkills().addExperience(8, tree.getExperience());
+                    player.send(new ChatBoxMessagePacket("You get a log."));
+                } else {
+                    player.send(new ChatBoxMessagePacket("You need an axe to cut a tree."));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void stopSkillingAction(Player player) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public int getTreeIndex() {
+        return treeIndex;
+    }
+
+}

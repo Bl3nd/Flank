@@ -1,5 +1,6 @@
 package com.phoenix.runescape.mobile.player.skill.impl;
 
+import com.phoenix.runescape.Constants;
 import com.phoenix.runescape.item.Item;
 import com.phoenix.runescape.mobile.player.Player;
 import com.phoenix.runescape.mobile.player.skill.SkillingAction;
@@ -71,13 +72,13 @@ public final class ThievingSkillingAction extends SkillingAction {
 		
 		for (NPC npc : NPC.values()) {
 			if (npc.getIndex() == getIndex()) {
-				if (player.getSkills().getSkills()[Constants.THIEVING].getLeve() >= npc.getRequiredLevel()) {
-					player.send(new ChatBoxMessagePacket("You attempt to steal the " + npc.getName() +"'s pocket...));
+				if (player.getSkills().getSkills()[Constants.THIEVING].getLevel() >= npc.getRequiredLevel()) {
+					player.send(new ChatBoxMessagePacket("You attempt to steal the " + npc.getName() +"'s pocket..."));
 					player.performAnimation(832, 0);
 					player.getInventoryContainer().addItem(new Item(995, npc.getCoins()));
 					player.getSkills().addExperience(17, npc.getExperience());
 				} else {
-					player.send(new ChatBoxMessagePacket("You need a Thieving level of " + npc.getRequiredLevel + " to steal from this npc.")
+					player.send(new ChatBoxMessagePacket("You need a Thieving level of " + npc.getRequiredLevel() + " to steal from this npc."));
 				}
 			}
 		}
